@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Forecast</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Chart JS -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Header -->
+    <div class="header">
+
+        <div class="logo">
+            🌦
+        </div>
+
+        <div>
+            <h1>Weather Forecast</h1>
+            <p>Check Real-Time Weather Updates</p>
+        </div>
+
+        <div class="time-box">
+            <h2 id="clock">10:30 AM</h2>
+            <span id="date">Tuesday, 27 May 2025</span>
+        </div>
+
+    </div>
+
+    <!-- Search Box -->
+    <div class="search-box">
+
+        <input
+        type="text"
+        id="cityInput"
+        placeholder="Enter City Name">
+
+        <button id="voice-btn">
+            <i class="fa-solid fa-microphone"></i>
+        </button>
+
+        <button id="searchBtn">
+            Search
+        </button>
+            
+    </div>
+
+    <!-- Main Weather Card -->
+    <div class="weather-card">
+
+        <div class="left-side">
+
+            <div class="weather-icon">
+                ☀️
+            </div>
+
+            <h2 id="temperature">
+                24°C
+            </h2>
+
+            <p id="description">
+                Partly Cloudy
+            </p>
+
+            <div class="minmax">
+                <span>⬆ 29°C</span>
+                <span>⬇ 18°C</span>
+            </div>
+
+        </div>
+
+        <div class="right-side">
+
+            <h2 id="cityName">
+                📍Patna, India
+            </h2>
+
+            <div class="details-grid">
+
+                <div class="detail-box">
+                    <i class="fa-solid fa-droplet"></i>
+                    <span id="humidity">68%</span>
+                    <small>Humidity</small>
+                </div>
+
+                <div class="detail-box">
+                    <i class="fa-solid fa-wind"></i>
+                    <span id="wind">5.2 m/s</span>
+                    <small>Wind Speed</small>
+                </div>
+
+                <div class="detail-box">
+                    <i class="fa-solid fa-eye"></i>
+                    <span id="visibility">10 km</span>
+                    <small>Visibility</small>
+                </div>
+
+                <div class="detail-box">
+                    <i class="fa-solid fa-temperature-half"></i>
+                    <span id="feelsLike">25°C</span>
+                    <small>Feels Like</small>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Temperature Chart -->
+    <div class="chart-section">
+
+        <h3>
+            Today's Temperature
+        </h3>
+
+        <canvas id="weatherChart"></canvas>
+
+    </div>
+
+    <!-- Forecast Cards -->
+    <div class="forecast-container">
+
+        <div class="forecast-card active">
+            <h4>Today</h4>
+            <div>☀️</div>
+            <p>39° / 28°</p>
+        </div>
+
+        <div class="forecast-card">
+            <h4>Thu</h4>
+            <div>☀️</div>
+            <p>41° / 29°</p>
+        </div>
+
+        <div class="forecast-card">
+            <h4>Fri</h4>
+            <div>☀️</div>
+            <p>39° / 29°</p>
+        </div>
+
+        <div class="forecast-card">
+            <h4>Sat</h4>
+            <div>☀️</div>
+            <p>39° / 29°</p>
+        </div>
+
+        <div class="forecast-card">
+            <h4>Sun</h4>
+            <div>⛅</div>
+            <p>39° / 27°</p>
+        </div>
+
+        <div class="forecast-card">
+            <h4>Mon</h4>
+            <div>🌧</div>
+            <p>38° / 26°</p>
+        </div>
+
+    </div>
+        <!-- Extra Weather Info -->
+
+    <div class="extra-info">
+
+        <div class="info-card">
+            <i class="fa-solid fa-sun"></i>
+            <h3>Sunrise</h3>
+            <p id="sunrise">05:24 AM</p>
+        </div>
+
+        <div class="info-card">
+            <i class="fa-solid fa-moon"></i>
+            <h3>Sunset</h3>
+            <p id="sunset">07:12 PM</p>
+        </div>
+
+        <div class="info-card">
+            <i class="fa-solid fa-cloud-rain"></i>
+            <h3>Chance of Rain</h3>
+            <p id="rainChance">10%</p>
+        </div>
+
+        <div class="info-card">
+            <i class="fa-solid fa-gauge-high"></i>
+            <h3>Air Quality</h3>
+            <p id="aqi">42 (Good)</p>
+        </div>
+
+    </div>
+
+    <!-- Floating Voice Button -->
+
+    <button class="floating-mic" id="floatingMic">
+        <i class="fa-solid fa-microphone"></i>
+    </button>
+
+    <!-- Footer -->
+
+    <footer>
+        Made with ❤️ by Vikash | Weather App
+    </footer>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
