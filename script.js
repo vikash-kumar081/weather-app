@@ -95,6 +95,7 @@ data.coord.lon
             data.main.temp,
             data.weather[0].main
         );
+        getForecast(city);
 
     }
     catch(error){
@@ -211,57 +212,29 @@ cityInput.addEventListener(
 /* =========================
    CHART JS
 ========================= */
+const ctx = document.getElementById("weatherChart");
 
-const ctx =
-document.getElementById("weatherChart");
+let weatherChart = new Chart(ctx, {
 
-if(ctx){
+    type: "line",
 
-new Chart(ctx,{
+    data: {
+        labels: ["2AM","5AM","8AM","11AM","2PM","5PM","8PM","11PM"],
 
-    type:"line",
-
-    data:{
-        labels:[
-            "2AM",
-            "5AM",
-            "8AM",
-            "11AM",
-            "2PM",
-            "5PM",
-            "8PM",
-            "11PM"
-        ],
-
-        datasets:[{
-
-            label:"Temperature",
-
-            data:[
-                24,
-                26,
-                29,
-                31,
-                35,
-                33,
-                30,
-                27
-            ],
-
-            tension:0.4,
-
-            fill:true
-
+        datasets: [{
+            label: "Temperature",
+            data: [24,26,29,31,35,33,30,27],
+            tension: 0.4,
+            fill: true
         }]
     },
 
-    options:{
-        responsive:true
+    options: {
+        responsive: true
     }
 
 });
 
-}
 /* =========================
    SUNRISE & SUNSET
 ========================= */
@@ -391,4 +364,53 @@ Math.floor(Math.random()*100);
 document.getElementById("rainChance")
 .innerHTML =
 `${rainChance}%`;
+async function getForecast(city){
 
+    try{
+
+        const url =
+        `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
+
+        const response = await fetch(url);
+
+        const data = await response.json();
+
+      updateChart(data);
+
+    }
+
+    catch(error){
+
+        console.log(error);
+
+    }
+
+}
+function updateChart(data){
+
+    const labels = [];
+    const temps = [];
+
+    data.list.slice(0,8).forEach(item=>{
+
+        const time =
+        new Date(item.dt_txt)
+        .toLocaleTimeString([],{
+            hour:"numeric"
+        });
+
+        labels.push(time);
+
+        temps.push(
+            Math.round(item.main.temp)
+        );
+
+    });
+
+    weatherChart.data.labels = labels;
+
+    weatherChart.data.datasets[0].data = temps;
+
+    weatherChart.update();
+
+}
