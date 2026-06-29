@@ -231,7 +231,17 @@ let weatherChart = new Chart(ctx, {
 
     options: {
     responsive: true,
-
+        plugins: {
+    legend: {
+        labels: {
+            color: "rgba(255,255,255,0.85)",
+            font: {
+                size: 14,
+                weight: "600"
+            }
+        }
+    }
+},
     scales: {
         x: {
             ticks: {
