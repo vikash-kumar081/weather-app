@@ -114,9 +114,11 @@ data.coord.lon
 function changeBackground(temp, condition){
 
     if(
-        condition === "Fog" ||
-        condition === "Mist" ||
-        condition === "Haze"
+        condition === "Rain" ||
+        condition === "Drizzle" ||
+        condition === "Thunderstorm"||
+        condition === "moderate rain"||
+        condition === "light rain"
     ){
 
         document.body.style.backgroundImage =
@@ -125,11 +127,9 @@ function changeBackground(temp, condition){
     }
 
     else if(
-        condition === "Rain" ||
-        condition === "Drizzle" ||
-        condition === "Thunderstorm"||
-        condition === "Moderate rain"||
-        condition === "light rain"
+          condition === "Fog" ||
+        condition === "Mist" ||
+        condition === "Haze"
     ){
 
         document.body.style.backgroundImage =
