@@ -127,7 +127,9 @@ function changeBackground(temp, condition){
     else if(
         condition === "Rain" ||
         condition === "Drizzle" ||
-        condition === "Thunderstorm"
+        condition === "Thunderstorm"||
+        condition === "Moderate rain"||
+        condition === "light rain"
     ){
 
         document.body.style.backgroundImage =
