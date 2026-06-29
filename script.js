@@ -138,7 +138,7 @@ function changeBackground(temp, condition){
     else if(temp >= 35){
 
         document.body.style.backgroundImage =
-        'linear-gradient(rgba(0,0,0,.3),rgba(0,0,0,.3)),url("safari.jpeg")';
+        'linear-gradient(rgba(0,0,0,.3),rgba(0,0,0,.3)),url("hotest.jfif")';
 
     }
 
