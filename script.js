@@ -230,8 +230,21 @@ let weatherChart = new Chart(ctx, {
     },
 
     options: {
-        responsive: true
+    responsive: true,
+
+    scales: {
+        x: {
+            ticks: {
+                color: "rgba(255,255,255,0.75)"
+            }
+        },
+        y: {
+            ticks: {
+                color: "rgba(255,255,255,0.75)"
+            }
+        }
     }
+}
 
 });
 
