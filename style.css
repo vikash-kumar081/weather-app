@@ -11,7 +11,7 @@ body{
 
     background:
 linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25)),
-url("forest.jpeg");
+url("forest3.jpg");
 
 background-size: cover;
 background-position: center;
@@ -40,7 +40,7 @@ background-repeat: no-repeat;
 }
 
 .logo{
-    font-size:60px;
+    font-size: clamp(35px, 6vw, 60px);
 }
 
 .header h1{
@@ -49,7 +49,7 @@ background-repeat: no-repeat;
 }
 
 .header p{
-    font-size:18px;
+   font-size: clamp(14px, 2vw, 18px);
     opacity:0.9;
 }
 
@@ -63,7 +63,7 @@ background-repeat: no-repeat;
 }
 
 .time-box h2{
-    font-size:28px;
+   font-size: clamp(20px, 3vw, 28px);
 }
 
 .time-box span{
@@ -81,13 +81,15 @@ background-repeat: no-repeat;
 }
 
 .search-box input{
-    width:600px;      /* Search box ki width */
+    width:90%; 
+    max-width:600px;      /* Search box ki width */
     height:50px;
     padding:12px 20px;
     border:none;
     outline:none;
     border-radius:12px;
     font-size:15px;
+    
 }
 
 .search-box button{
@@ -139,17 +141,17 @@ background-repeat: no-repeat;
 }
 
 .weather-icon{
-    font-size:90px;
+    font-size: clamp(50px, 8vw, 90px);
     margin-bottom:15px;
 }
 
 #temperature{
-    font-size:70px;
+     font-size: clamp(40px, 8vw, 70px);
     font-weight:bold;
 }
 
 #description{
-    font-size:28px;
+    font-size: clamp(18px, 4vw, 28px);
     margin:10px 0;
 }
 
@@ -166,7 +168,7 @@ background-repeat: no-repeat;
 
 #cityName{
     margin-bottom:25px;
-    font-size:30px;
+   font-size: clamp(20px, 4vw, 30px);
 }
 
 .details-grid{
@@ -189,7 +191,7 @@ background-repeat: no-repeat;
 
 .detail-box span{
     display:block;
-    font-size:24px;
+    font-size: clamp(16px, 3vw, 24px);
     font-weight:bold;
 }
 
@@ -200,11 +202,11 @@ background-repeat: no-repeat;
 /* CHART SECTION */
 
 .chart-section{
-    background:rgba(255,255,255,0.12);
+    background:rgba(255, 255, 255, 0.493);
     backdrop-filter:blur(20px);
 
     border-radius:30px;
-    padding:25px;
+   padding: clamp(15px, 3vw, 25px);
     margin-bottom:30px;
 }
 
@@ -255,7 +257,7 @@ background-repeat: no-repeat;
 
 .forecast-card h4{
     margin-bottom:15px;
-    font-size:20px;
+     font-size: clamp(14px, 3vw, 20px);
 }
 
 .forecast-card div{
@@ -264,7 +266,7 @@ background-repeat: no-repeat;
 }
 
 .forecast-card p{
-    font-size:20px;
+   font-size: clamp(14px, 3vw, 20px);
 }
 
 /* EXTRA INFO */
@@ -281,7 +283,7 @@ background-repeat: no-repeat;
     backdrop-filter:blur(20px);
 
     border-radius:20px;
-    padding:25px;
+   padding: clamp(15px, 3vw, 25px);
     text-align:center;
 
     transition:0.3s;
@@ -313,8 +315,8 @@ background-repeat: no-repeat;
     bottom:30px;
     right:30px;
 
-    width:70px;
-    height:70px;
+    width:55px;
+    height:55px;
 
     border:none;
     border-radius:50%;
@@ -322,7 +324,7 @@ background-repeat: no-repeat;
     background:#4f46e5;
     color:white;
 
-    font-size:28px;
+    font-size:20px;
     cursor:pointer;
 
     box-shadow:0 0 30px rgba(79,70,229,0.8);
@@ -386,17 +388,15 @@ footer{
     }
 
     .header h1{
-        font-size:30px;
+       font-size: clamp(24px, 4vw, 42px);
     }
 
-    .search-box{
-        flex-direction:column;
-    }
+   
 
     #voice-btn,
     #searchBtn{
-        width:100%;
-        height:55px;
+        width:120px;
+        height:50px;
     }
 
     #temperature{
