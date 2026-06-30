@@ -114,11 +114,12 @@ data.coord.lon
 function changeBackground(temp, condition){
 
     if(
-        condition === "Rain" ||
+         condition === "Rain" ||
         condition === "Drizzle" ||
         condition === "Thunderstorm"||
-        condition === "moderate rain"||
-        condition === "light rain"
+         condition === "moderate rain"||
+          condition === "light rain"
+        
     ){
 
         document.body.style.backgroundImage =
@@ -127,7 +128,7 @@ function changeBackground(temp, condition){
     }
 
     else if(
-          condition === "Fog" ||
+       condition === "Fog" ||
         condition === "Mist" ||
         condition === "Haze"
     ){
@@ -143,6 +144,11 @@ function changeBackground(temp, condition){
         'linear-gradient(rgba(0,0,0,.3),rgba(0,0,0,.3)),url("hotest.PNG")';
 
     }
+    else if(temp <= 20){
+    document.body.style.backgroundImage =
+   'linear-gradient(rgba(0,0,0,.3),rgba(0,0,0,.3)),url("normal7.jfif")';
+
+}
 
     else{
 
@@ -231,14 +237,14 @@ let weatherChart = new Chart(ctx, {
         }]
     },
 
-    options: {
+  options: {
     responsive: true,
-        plugins: {
-    legend: {
-        labels: {
-            color: "rgba(255,255,255,0.85)",
-            font: {
-                size: 14,
+    plugins: {
+        legend: {
+            labels: {
+                color: "rgba(255,255,255,0.85)",
+                    font: {
+                    size: 14,
                 weight: "600"
             }
         }
