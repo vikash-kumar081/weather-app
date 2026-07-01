@@ -445,3 +445,21 @@ function updateChart(data){
     weatherChart.update();
 
 }
+const aboutBtn = document.getElementById("aboutBtn");
+const modal = document.getElementById("aboutModal");
+const closeBtn = document.querySelector(".close-btn");
+
+aboutBtn.addEventListener("click", function(e){
+    e.preventDefault();
+    modal.style.display = "block";
+});
+
+closeBtn.addEventListener("click", function(){
+    modal.style.display = "none";
+});
+
+window.addEventListener("click", function(e){
+    if(e.target === modal){
+        modal.style.display = "none";
+    }
+});
