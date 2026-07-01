@@ -18,26 +18,23 @@
 <body>
 
 <div class="container">
+<nav class="navbar">
+    <div class="nav-logo">
+    🌦
+</div>
 
-    <!-- Header -->
-    <div class="header">
-
-        <div class="logo">
-            🌦
-        </div>
-
-        <div>
-            <h1>Weather Forecast</h1>
-            <p>Check Real-Time Weather Updates</p>
-        </div>
-
-        <div class="time-box">
-            <h2 id="clock">10:30 AM</h2>
-            <span id="date">Tuesday, 27 May 2025</span>
-        </div>
-
-    </div>
-
+    <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#graph">Graph</a></li>
+        <li><a href="#forecast">Forecast</a></li>
+        <li><a href="#" id="aboutBtn">About</a></li>
+    </ul>
+    <div class="nav-time">
+    <h3 id="clock">10:30 AM</h3>
+    <span id="date">Tuesday, 27 May 2025</span>
+</div>
+</nav>
+    <div id="home"></div>
     <!-- Search Box -->
     <div class="search-box">
 
@@ -119,7 +116,7 @@
     </div>
 
     <!-- Temperature Chart -->
-    <div class="chart-section">
+    <div class="chart-section" id="graph">
 
         <h3>
             Today's Temperature
@@ -130,45 +127,45 @@
     </div>
 
     <!-- Forecast Cards -->
-    <div class="forecast-container">
+    <div class="forecast-container" id="forecast">
 
-        <div class="forecast-card active">
-            <h4>Today</h4>
-            <div>☀️</div>
-            <p>39° / 28°</p>
-        </div>
-
-        <div class="forecast-card">
-            <h4>Thu</h4>
-            <div>☀️</div>
-            <p>41° / 29°</p>
-        </div>
-
-        <div class="forecast-card">
-            <h4>Fri</h4>
-            <div>☀️</div>
-            <p>39° / 29°</p>
-        </div>
-
-        <div class="forecast-card">
-            <h4>Sat</h4>
-            <div>☀️</div>
-            <p>39° / 29°</p>
-        </div>
-
-        <div class="forecast-card">
-            <h4>Sun</h4>
-            <div>⛅</div>
-            <p>39° / 27°</p>
-        </div>
-
-        <div class="forecast-card">
-            <h4>Mon</h4>
-            <div>🌧</div>
-            <p>38° / 26°</p>
-        </div>
-
+    <div class="forecast-card active">
+        <h4>Today</h4>
+        <div>☀️</div>
+        <p>39° / 28°</p>
     </div>
+
+    <div class="forecast-card">
+        <h4>Thu</h4>
+        <div>⛅</div>
+        <p>38° / 27°</p>
+    </div>
+
+    <div class="forecast-card">
+        <h4>Fri</h4>
+        <div>🌧️</div>
+        <p>35° / 25°</p>
+    </div>
+
+    <div class="forecast-card">
+        <h4>Sat</h4>
+        <div>☀️</div>
+        <p>40° / 29°</p>
+    </div>
+
+    <div class="forecast-card">
+        <h4>Sun</h4>
+        <div>☁️</div>
+        <p>36° / 26°</p>
+    </div>
+
+    <div class="forecast-card">
+        <h4>Mon</h4>
+        <div>🌤️</div>
+        <p>37° / 27°</p>
+    </div>
+
+</div>
         <!-- Extra Weather Info -->
 
     <div class="extra-info">
@@ -213,7 +210,36 @@
 
 </div>
 
-<script src="script.js"></script>
 
+<div id="aboutModal" class="modal">
+
+    <div class="modal-content">
+
+        <span class="close-btn">&times;</span>
+
+        <h2>🌦 About Weatherly</h2>
+        <p>
+            Weatherly is a modern weather forecasting web application designed to provide
+            real-time weather updates, temperature trends, humidity, wind speed, visibility,
+            air quality insights, and multi-day forecasts through an intuitive and responsive interface.
+        </p>
+
+        <p>
+            This project was developed by <strong>Vikash Kumar</strong>, a B.Tech Computer Science student,
+            using <strong>HTML, CSS, JavaScript, Chart.js, and Weather APIs</strong>.
+            The application demonstrates skills in frontend development, API integration,
+            responsive web design, data visualization, and modern UI/UX principles.
+        </p>
+
+        <p>
+            The goal of this project was to create a clean, interactive, and user-friendly
+            weather dashboard that works seamlessly across desktop, tablet, and mobile devices
+            while delivering accurate weather information in real time.
+        </p>
+
+    </div>
+
+</div>
+<script src="script.js"></script>
 </body>
 </html>
