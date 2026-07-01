@@ -47,8 +47,8 @@ async function getWeather(){
         const response = await fetch(url);
         const data = await response.json();
         /* =========================
-   MODIFY getWeather()
-========================= */
+            MODIFY getWeather()
+        ========================= */
 
 document.getElementById("sunrise").innerHTML =
 formatTime(data.sys.sunrise);
@@ -90,11 +90,12 @@ data.coord.lon
 
         document.getElementById("feelsLike").innerHTML =
             `${Math.round(data.main.feels_like)}°C`;
-
+        
         changeBackground(
             data.main.temp,
             data.weather[0].main
         );
+        
         getForecast(city);
 
     }
@@ -407,7 +408,7 @@ async function getForecast(city){
         const data = await response.json();
 
       updateChart(data);
-
+    updateForecastCards(data);
     }
 
     catch(error){
@@ -463,3 +464,81 @@ window.addEventListener("click", function(e){
         modal.style.display = "none";
     }
 });
+function updateForecastCards(data){
+
+    const forecastContainer =
+    document.getElementById("forecastContainer");
+
+    forecastContainer.innerHTML = "";
+
+    const dailyForecast = {};
+
+    data.list.forEach(item => {
+
+        const date = item.dt_txt.split(" ")[0];
+
+        if(!dailyForecast[date]){
+            dailyForecast[date] = {
+                min: item.main.temp_min,
+                max: item.main.temp_max,
+                condition: item.weather[0].main
+            };
+        }
+        else{
+            dailyForecast[date].min =
+            Math.min(
+                dailyForecast[date].min,
+                item.main.temp_min
+            );
+
+            dailyForecast[date].max =
+            Math.max(
+                dailyForecast[date].max,
+                item.main.temp_max
+            );
+        }
+    });
+
+    Object.keys(dailyForecast)
+    .slice(0,6)
+    .forEach((date,index)=>{
+
+        const dayName =
+        index===0
+        ? "Today"
+        : new Date(date)
+        .toLocaleDateString("en-US",{
+            weekday:"short"
+        });
+
+        const weather =
+        dailyForecast[date];
+
+        let icon = "🌤️";
+
+        if(weather.condition==="Clear") icon="☀️";
+        else if(weather.condition==="Clouds") icon="☁️";
+        else if(weather.condition==="Rain") icon="🌧️";
+        else if(weather.condition==="Thunderstorm") icon="⛈️";
+        else if(weather.condition==="Snow") icon="❄️";
+
+        forecastContainer.innerHTML += `
+        <div class="forecast-card ${index===0 ? 'active' : ''}">
+            <h4>${dayName}</h4>
+            <div>${icon}</div>
+            <p>
+                ${Math.round(weather.max)}°
+                /
+                ${Math.round(weather.min)}°
+            </p>
+        </div>
+        `;
+    });
+    const firstDay = Object.values(dailyForecast)[0];
+
+document.getElementById("maxTemp").innerHTML =
+`⬆ ${Math.round(firstDay.max)}°C`;
+
+document.getElementById("minTemp").innerHTML =
+`⬇ ${Math.round(firstDay.min)}°C`;
+}
