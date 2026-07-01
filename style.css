@@ -546,7 +546,7 @@ footer{
 }
 
 .close-btn{
-    position:absolute;
+    position:sticky;
     float:right;
     top:0;
     font-size:30px;
