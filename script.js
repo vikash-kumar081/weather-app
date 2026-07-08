@@ -23,7 +23,6 @@ function updateClock(){
 
 setInterval(updateClock,1000);
 updateClock();
-
 /* =========================
    SEARCH WEATHER
 ========================= */
@@ -108,7 +107,7 @@ data.coord.lon
 
 }
 
-/* =========================
+/* =====================
    DYNAMIC BACKGROUND
 ========================= */
 
@@ -145,7 +144,11 @@ function changeBackground(temp, condition){
         'linear-gradient(rgba(0,0,0,.3),rgba(0,0,0,.3)),url("hotest.PNG")';
 
     }
-    else if(temp <= 20){
+else if(temp > 25 && temp < 30){
+        document.body.style.backgroundImage =
+    'linear-gradient(rgba(0,0,0,.3),rgba(0,0,0,.3)),url("river1.jpeg")';
+}
+        else if(temp <= 20){
     document.body.style.backgroundImage =
    'linear-gradient(rgba(0,0,0,.3),rgba(0,0,0,.3)),url("normal7.jfif")';
 
