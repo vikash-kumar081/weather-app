@@ -1,6 +1,8 @@
 # Weather App – Real-Time Weather Forecast Application
 
 
+![Weather App](weather%20readme.jpeg)
+
 A responsive web application that provides real-time weather information for cities worldwide using weather API integration. The application delivers current weather conditions, temperature, humidity, wind speed, and other essential meteorological data through an intuitive and user-friendly interface.
 
 ## Project Overview
