@@ -37,6 +37,10 @@ async function getWeather(){
         alert("Please enter city name");
         return;
     }
+    searchBtn.disabled = true;
+searchBtn.classList.add("loading");
+searchBtn.innerHTML =
+'<span class="loader"></span>Loading...';
 
     const url =
     `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
@@ -96,14 +100,20 @@ data.coord.lon
         );
         
         getForecast(city);
-
+        searchBtn.disabled = false;
+searchBtn.classList.remove("loading");
+searchBtn.innerHTML = "Search";
     }
-    catch(error){
+   catch(error){
 
-        console.log(error);
-        alert("Something went wrong");
+    console.log(error);
+    alert("Something went wrong");
 
-    }
+    searchBtn.disabled = false;
+    searchBtn.classList.remove("loading");
+    searchBtn.innerHTML = "Search";
+
+}
 
 }
 
@@ -299,10 +309,10 @@ function updateWeatherIcon(condition){
         case "Clear":
             icon.innerHTML = "☀️";
             break;
-
         case "Clouds":
-            icon.innerHTML = "☁️";
-            break;
+    icon.innerHTML = "☁️";
+    break;
+        
 
         case "Rain":
             icon.innerHTML = "🌧️";
@@ -331,7 +341,6 @@ function updateWeatherIcon(condition){
     }
 
 }
-
 /* =========================
    AIR QUALITY INDEX
 ========================= */
@@ -346,36 +355,27 @@ async function getAQI(lat, lon){
         const response = await fetch(url);
         const data = await response.json();
 
-        const aqiValue =
-        data.list[0].main.aqi;
+      const pm25 = Math.round(
+data.list[0].components.pm2_5
+);
 
-        let text = "";
+let text = "";
 
-        switch(aqiValue){
+if(pm25 <= 50){
+    text = "🟢 Good";
+}
+else if(pm25 <= 100){
+    text = "🟡 Moderate";
+}
+else if(pm25 <= 150){
+    text = "🟠 Unhealthy";
+}
+else{
+    text = "🔴 Poor";
+}
 
-            case 1:
-                text = "Good";
-                break;
-
-            case 2:
-                text = "Fair";
-                break;
-
-            case 3:
-                text = "Moderate";
-                break;
-
-            case 4:
-                text = "Poor";
-                break;
-
-            case 5:
-                text = "Very Poor";
-                break;
-        }
-
-        document.getElementById("aqi").innerHTML =
-        `${aqiValue} (${text})`;
+       document.getElementById("aqi").innerHTML =
+`${pm25} (${text})`;
 
     }
 
@@ -387,18 +387,6 @@ async function getAQI(lat, lon){
 
 }
 
-
-
-/* =========================
-   RAIN CHANCE (DEMO)
-========================= */
-
-const rainChance =
-Math.floor(Math.random()*100);
-
-document.getElementById("rainChance")
-.innerHTML =
-`${rainChance}%`;
 async function getForecast(city){
 
     try{
@@ -407,11 +395,12 @@ async function getForecast(city){
         `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
 
         const response = await fetch(url);
-
         const data = await response.json();
 
-      updateChart(data);
-    updateForecastCards(data);
+updateRainChance(data);
+
+updateChart(data);
+updateForecastCards(data);
     }
 
     catch(error){
@@ -419,6 +408,18 @@ async function getForecast(city){
         console.log(error);
 
     }
+
+}
+function updateRainChance(data){
+
+    const rainChance =
+    Math.round(
+        (data.list[0].pop || 0) * 100
+    );
+
+    document.getElementById("rainChance")
+    .innerHTML =
+    `${rainChance}%`;
 
 }
 function updateChart(data){
@@ -544,4 +545,36 @@ document.getElementById("maxTemp").innerHTML =
 
 document.getElementById("minTemp").innerHTML =
 `⬇ ${Math.round(firstDay.min)}°C`;
+}
+document.getElementById("locationBtn")
+.addEventListener("click", getCurrentLocation);
+
+function getCurrentLocation(){
+
+    if(!navigator.geolocation){
+        alert("Geolocation not supported");
+        return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+        async (position)=>{
+
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+
+            const url =
+            `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+
+            const response = await fetch(url);
+            const data = await response.json();
+
+            cityInput.value = data.name;
+
+            getWeather();
+
+        },
+        ()=>{
+            alert("Location access denied");
+        }
+    );
 }
