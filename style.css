@@ -657,3 +657,27 @@ background:#1e293b;
  background:#334155;
     transform:translateY(-2px);
 }
+@media(max-width:600px){
+    .search-box{
+        gap:6px;
+    }
+    .search-box input{
+        height:45px;
+        font-size:14px;
+    }
+    #voice-btn{
+        width:45px;
+        height:45px;
+    }
+    #locationBtn{
+        width:45px;
+        height:45px;
+        font-size:14px;
+    }
+    #searchBtn{
+        width:85px;
+        height:45px;
+        font-size:14px;
+    }
+
+}
