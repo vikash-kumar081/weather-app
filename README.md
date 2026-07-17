@@ -134,24 +134,6 @@ Weather Information Display
 * Weather Alerts & Notifications
 * Air Quality Index (AQI) Integration
 
----
-
-## Screenshots
-
-### Home Page
-
-*Add screenshot here*
-
-### Weather Search Result
-
-*Add screenshot here*
-
-### Mobile Responsive View
-
-*Add screenshot here*
-
----
-
 ## Author
 
 **Vikash Kumar**
