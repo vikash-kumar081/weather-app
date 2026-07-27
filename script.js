@@ -1,5 +1,4 @@
 const apiKey = "f415e706f1db6b4fc436f9e499e4959f";
-
 const searchBtn = document.getElementById("searchBtn");
 const cityInput = document.getElementById("cityInput");
 const voiceBtn = document.getElementById("voice-btn");
@@ -10,43 +9,35 @@ const floatingMic = document.getElementById("floatingMic");
 ========================= */
 
 function updateClock(){
-
     const now = new Date();
-
     document.getElementById("clock").innerHTML =
         now.toLocaleTimeString();
-
     document.getElementById("date").innerHTML =
         now.toDateString();
-
 }
 
 setInterval(updateClock,1000);
 updateClock();
+
 /* =========================
    SEARCH WEATHER
 ========================= */
 
 searchBtn.addEventListener("click", getWeather);
-
 async function getWeather(){
-
     const city = cityInput.value.trim();
-
     if(city === ""){
         alert("Please enter city name");
         return;
     }
     searchBtn.disabled = true;
-searchBtn.classList.add("loading");
-searchBtn.innerHTML =
-'<span class="loader"></span>Loading...';
-
+    searchBtn.classList.add("loading");
+    searchBtn.innerHTML =
+    '<span class="loader"></span>Loading...';
     const url =
     `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 
     try{
-
         const response = await fetch(url);
         const data = await response.json();
         /* =========================
@@ -108,13 +99,10 @@ searchBtn.innerHTML = "Search";
 
     console.log(error);
     alert("Something went wrong");
-
     searchBtn.disabled = false;
     searchBtn.classList.remove("loading");
     searchBtn.innerHTML = "Search";
-
 }
-
 }
 
 /* =====================
@@ -124,17 +112,15 @@ searchBtn.innerHTML = "Search";
 function changeBackground(temp, condition){
 
     if(
-         condition === "Rain" ||
+        condition === "Rain" ||
         condition === "Drizzle" ||
         condition === "Thunderstorm"||
-         condition === "moderate rain"||
-          condition === "light rain"
+        condition === "moderate rain"||
+        condition === "light rain"
         
     ){
-
         document.body.style.backgroundImage =
-        'linear-gradient(rgba(0,0,0,.3),rgba(0,0,0,.3)),url("rain.PNG")';
-
+        'linear-gradient(rgba(0,0,0,.3),rgba(0,0,0,.3)),url("rainy.jpeg")';
     }
 
     else if(
@@ -142,33 +128,27 @@ function changeBackground(temp, condition){
         condition === "Mist" ||
         condition === "Haze"
     ){
-
         document.body.style.backgroundImage =
-        'linear-gradient(rgba(0,0,0,.3),rgba(0,0,0,.3)),url("forest.jpeg")';
-
+        'linear-gradient(rgba(0,0,0,.3),rgba(0,0,0,.3)),url("winter.jpeg")';
     }
 
     else if(temp >= 35){
-
         document.body.style.backgroundImage =
-        'linear-gradient(rgba(0,0,0,.3),rgba(0,0,0,.3)),url("hotest.PNG")';
-
+        'linear-gradient(rgba(0,0,0,.3),rgba(0,0,0,.3)),url("summer.jpeg")';
     }
 else if(temp > 25 && temp < 30){
         document.body.style.backgroundImage =
-    'linear-gradient(rgba(0,0,0,.3),rgba(0,0,0,.3)),url("river1.jpeg")';
+    'linear-gradient(rgba(0,0,0,.3),rgba(0,0,0,.3)),url("normal.jpeg")';
 }
+
         else if(temp <= 20){
     document.body.style.backgroundImage =
-   'linear-gradient(rgba(0,0,0,.3),rgba(0,0,0,.3)),url("normal7.jfif")';
-
+   'linear-gradient(rgba(0,0,0,.3),rgba(0,0,0,.3)),url("winter.jpeg")';
 }
 
     else{
-
         document.body.style.backgroundImage =
-        'linear-gradient(rgba(0,0,0,.3),rgba(0,0,0,.3)),url("mountain.jpeg")';
-
+        'linear-gradient(rgba(0,0,0,.3),rgba(0,0,0,.3)),url("normal.jpeg")';
     }
 
 }
@@ -178,40 +158,29 @@ else if(temp > 25 && temp < 30){
 ========================= */
 
 function startVoice(){
-
     const recognition =
     new(window.SpeechRecognition ||
-        window.webkitSpeechRecognition)();
+     window.webkitSpeechRecognition)();
 
     recognition.lang = "en-US";
-
     recognition.start();
-
     recognition.onresult = function(event){
-
         const city =
         event.results[0][0].transcript;
-
         cityInput.value = city;
-
         getWeather();
-
     };
-
 }
 
 voiceBtn.addEventListener(
     "click",
     startVoice
 );
-
 if(floatingMic){
-
     floatingMic.addEventListener(
         "click",
         startVoice
     );
-
 }
 
 /* =========================
@@ -221,13 +190,9 @@ if(floatingMic){
 cityInput.addEventListener(
     "keypress",
     function(event){
-
         if(event.key === "Enter"){
-
             getWeather();
-
         }
-
     }
 );
 
@@ -235,14 +200,10 @@ cityInput.addEventListener(
    CHART JS
 ========================= */
 const ctx = document.getElementById("weatherChart");
-
 let weatherChart = new Chart(ctx, {
-
     type: "line",
-
     data: {
         labels: ["2AM","5AM","8AM","11AM","2PM","5PM","8PM","11PM"],
-
         datasets: [{
             label: "Temperature",
             data: [24,26,29,31,35,33,30,27],
@@ -351,10 +312,8 @@ async function getAQI(lat, lon){
 
         const url =
         `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${apiKey}`;
-
         const response = await fetch(url);
         const data = await response.json();
-
       const pm25 = Math.round(
 data.list[0].components.pm2_5
 );
@@ -378,55 +337,38 @@ else{
 `${pm25} (${text})`;
 
     }
-
     catch(error){
-
         console.log(error);
-
     }
-
 }
 
 async function getForecast(city){
-
     try{
-
         const url =
         `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
-
         const response = await fetch(url);
         const data = await response.json();
-
 updateRainChance(data);
-
 updateChart(data);
 updateForecastCards(data);
     }
-
     catch(error){
-
         console.log(error);
-
     }
-
 }
-function updateRainChance(data){
 
+function updateRainChance(data){
     const rainChance =
     Math.round(
         (data.list[0].pop || 0) * 100
     );
-
     document.getElementById("rainChance")
     .innerHTML =
     `${rainChance}%`;
-
 }
 function updateChart(data){
-
     const labels = [];
     const temps = [];
-
     data.list.slice(0,8).forEach(item=>{
 
         const time =
@@ -444,9 +386,7 @@ function updateChart(data){
     });
 
     weatherChart.data.labels = labels;
-
     weatherChart.data.datasets[0].data = temps;
-
     weatherChart.update();
 
 }
@@ -472,11 +412,8 @@ function updateForecastCards(data){
 
     const forecastContainer =
     document.getElementById("forecastContainer");
-
     forecastContainer.innerHTML = "";
-
     const dailyForecast = {};
-
     data.list.forEach(item => {
 
         const date = item.dt_txt.split(" ")[0];
@@ -569,7 +506,6 @@ function getCurrentLocation(){
             const data = await response.json();
 
             cityInput.value = data.name;
-
             getWeather();
 
         },
