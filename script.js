@@ -4,6 +4,13 @@ const cityInput = document.getElementById("cityInput");
 const voiceBtn = document.getElementById("voice-btn");
 const floatingMic = document.getElementById("floatingMic");
 
+const previousData = {
+    temp: 0,
+    humidity: 0,
+    wind: 0,
+    visibility: 0,
+    feelsLike: 0
+};
 /* =========================
    LIVE CLOCK
 ========================= */
@@ -66,24 +73,61 @@ data.coord.lon
 
         document.getElementById("cityName").innerHTML =
             `📍 ${data.name}, ${data.sys.country}`;
+            animateElement("cityName");
 
-        document.getElementById("temperature").innerHTML =
-            `${Math.round(data.main.temp)}°C`;
+        animateValue(
+"temperature",
+previousData.temp,
+Math.round(data.main.temp),
+"°C"
+);
+
+previousData.temp =
+Math.round(data.main.temp);
 
         document.getElementById("description").innerHTML =
             data.weather[0].description;
+        animateElement("description");
+            animateValue(
+"humidity",
+previousData.humidity,
+data.main.humidity,
+"%"
+);
 
-        document.getElementById("humidity").innerHTML =
-            `${data.main.humidity}%`;
+previousData.humidity =
+data.main.humidity;
+        
 
-        document.getElementById("wind").innerHTML =
-            `${data.wind.speed} m/s`;
+        animateValue(
+"wind",
+previousData.wind,
+data.wind.speed,
+"m/s"
+);
 
-        document.getElementById("visibility").innerHTML =
-            `${data.visibility/1000} km`;
+previousData.wind =
+data.wind.speed;
 
-        document.getElementById("feelsLike").innerHTML =
-            `${Math.round(data.main.feels_like)}°C`;
+        animateValue(
+"visibility",
+previousData.visibility,
+data.visibility/1000,
+"km"
+);
+
+previousData.visibility =
+data.visibility/1000;
+
+     animateValue(
+"feelsLike",
+previousData.feelsLike,
+Math.round(data.main.feels_like),
+"°C"
+);
+
+previousData.feelsLike =
+Math.round(data.main.feels_like);
         
         changeBackground(
             data.main.temp,
@@ -240,7 +284,75 @@ let weatherChart = new Chart(ctx, {
 }
 
 });
+function animateValue(id, start, end, suffix = "") {
 
+    const el = document.getElementById(id);
+
+    const duration = 800;
+
+    let startTime = null;
+
+    function update(time){
+
+        if(!startTime) startTime = time;
+
+        const progress =
+        Math.min((time-startTime)/duration,1);
+
+       const ease =
+1 - Math.pow(1 - progress,3);
+
+const value =
+start+(end-start)*ease;
+
+        if(suffix==="m/s"){
+            el.innerHTML =
+            `${value.toFixed(2)} ${suffix}`;
+        }
+        else if(suffix==="km"){
+            el.innerHTML =
+            `${Math.round(value)} ${suffix}`;
+        }
+        else{
+            el.innerHTML =
+            `${Math.round(value)}${suffix}`;
+        }
+        if(progress < 1){
+    requestAnimationFrame(update);
+}
+else{
+
+    if(suffix==="m/s"){
+        el.innerHTML =
+        `${end.toFixed(2)} ${suffix}`;
+    }
+    else if(suffix==="km"){
+        el.innerHTML =
+        `${Math.round(end)} ${suffix}`;
+    }
+    else{
+        el.innerHTML =
+        `${Math.round(end)}${suffix}`;
+    }
+
+}
+    }
+
+    requestAnimationFrame(update);
+}
+function animateElement(id){
+
+    const el = document.getElementById(id);
+
+    if(!el) return;
+
+    el.classList.remove("weather-update");
+
+    void el.offsetWidth;
+
+    el.classList.add("weather-update");
+
+}
 /* =========================
    SUNRISE & SUNSET
 ========================= */
@@ -301,6 +413,10 @@ function updateWeatherIcon(condition){
             icon.innerHTML = "🌤️";
     }
 
+
+    icon.classList.remove("weather-update");
+    void icon.offsetWidth;
+    icon.classList.add("weather-update");
 }
 /* =========================
    AIR QUALITY INDEX
@@ -387,7 +503,10 @@ function updateChart(data){
 
     weatherChart.data.labels = labels;
     weatherChart.data.datasets[0].data = temps;
-    weatherChart.update();
+    weatherChart.update({
+    duration: 800,
+    easing: "easeOutQuart"
+});
 
 }
 const aboutBtn = document.getElementById("aboutBtn");
